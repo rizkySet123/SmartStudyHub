@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#5F88D2" />
+  <!-- favicon -->
+  <link rel="shortcut icon" href="{{ url_for('static', filename='assets/image/favicon.png')}}" type="image/x-icon" />
+  <!-- jquery -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+  <!-- apexchart -->
+  <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+  <!-- box icons -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css" />
+  <!-- bootstrap 5 -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous" />
+  <!-- daatables -->
+  <link rel="stylesheet" href="https://cdn.datatables.net/2.0.3/css/dataTables.bootstrap5.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css" />
+  <!-- local css -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='assets/css/style.css')}}" />
+  <link rel="stylesheet" href="{{ url_for('static', filename='assets/css/default.css')}}" />
+  <!-- flatpicker -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.10.8/dist/sweetalert2.min.css">
+  <!-- Font Awesome -->
+  <script src="https://kit.fontawesome.com/2e5ec2f420.js" crossorigin="anonymous"></script>
+  <title>Dashboard | Kelola Guru</title>
+</head>
+
+<body id="body-pd" class="">
+  <div id="infoModal" class="modal fade-in">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="staticBackdropLabel">
+            Tambah Data Guru
+          </h1>
+          <button type="button" class="btn-close out" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form action="/tambah/data" class="row g-3 needs-validation" novalidate>
+            <div class="col-md-6">
+              <label for="namaGuru" class="form-label">Nama Guru</label>
+              <input type="text" name="nama" class="form-control" id="namaGuru"
+                placeholder="Silahkan Masukkan Nama Guru" required autocomplete="off" />
+              <div class="invalid-feedback">Nama Guru Wajib Diisi!</div>
+
+              <label for="nktam" class="form-label mt-3">NKTAM</label>
+              <input type="text" name="nktam" class="form-control" id="nktam" placeholder="Masukkan NKTAM" required
+                required autocomplete="off" />
+              <div class="invalid-feedback">Bidang ini wajib diisi!</div>
+
+              <label for="tanggalLahirGuru" class="form-label mt-3">Tanggal Lahir</label>
+              <div class="input-group mb-3">
+                <input type="text" name="tanggalLahirGuru" class="form-control datepicker" id="tanggalLahirGuru"
+                  placeholder="Pilih Tanggal Lahir" required required autocomplete="off" />
+                <button class="btn btn-outline-secondary" type="button" id="tanggalLahirIcon">
+                  <i class="fa-regular fa-calendar"></i>
+                </button>
+              </div>
+              <div class="invalid-feedback">Bidang ini wajib diisi</div>
+
+              <!-- Radio Buttons -->
+              <div class="mt-3">
+                <label class="form-label d-block">Jenis Kelamin</label>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" name="jkGuru" id="lakiLaki" value="Laki-Laki" required>
+                  <label class="form-check-label" for="lakiLaki">Laki-Laki</label>
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" name="jkGuru" id="perempuan" value="Perempuan" required>
+                  <label class="form-check-label" for="perempuan">Perempuan</label>
+                </div>
+                <div class="invalid-feedback">Pilih salah satu jenis kelamin.</div>
+              </div>
+            </div>
+
+            <!-- kanan -->
+            <div class="col-md-6">
+              <label for="jabatan" class="form-label">Jabatan</label>
+              <input type="text" name="jabatan" class="form-control" id="jabatan" placeholder="Jabatan Guru" required />
+              <div class="invalid-feedback">Bidang ini Wajid diisi!.</div>
+
+              <label for="mapelYangDiajar" class="form-label mt-3">Mata Pelajaran Yang Diajar</label>
+              <select class="form-select" aria-label="Mata Pelajaran Yang Diajar" id="mapelYangDiajar"
+                name="mataPelajaran" required>
+                <option value="" selected>-- Pilih Mata Pelajaran --</option>
+                <option value="1">Bahasa Indonesia</option>
+                <option value="2">Matematika</option>
+                <option value="3">MIPA</option>
+              </select>
+              <div class="invalid-feedback">Bidang ini Wajid diisi!.</div>
+
+              <label for="nomorTeleponGuru" class="form-label mt-3">Nomor Telepon</label>
+              <input type="number" name="nomorTeleponGuru" class="form-control" id="nomorTeleponGuru"
+                placeholder="Masukan Nomor Telepon" required required autocomplete="off" />
+
+
+              <label for="emailGuru" class="form-label mt-3">Email</label>
+              <input type="emailGuru" name="emailGuru" class="form-control" id="emailGuru"
+                placeholder="Silahkan Masukan Email" required required autocomplete="off" />
+
+            </div>
+
+            <div class="col-12 d-flex justify-content-end border-top mt-5">
+              <button type="button" class="btn btn-secondary close mt-3 me-3" data-bs-dismiss="modal">
+                Batal
+              </button>
+              <button type="submit" class="btn btn-primary mt-3">
+                Tambahkan
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <header class="header" id="header">
+    <div class="header_toggle">
+      <i class="bx bx-menu" id="header-toggle"></i>
+    </div>
+    <div class="header-profile flex-row">
+      <div class="text-end">
+        <div class="profile-name inter-600">Sayoga Pratama</div>
+        <div class="role">Administrator</div>
+      </div>
+      <div class="header_img ms-3">
+        <img src="{{ url_for('static', filename='assets/image/icons/profile-demo.png')}}" alt="Profile" />
+      </div>
+    </div>
+  </header>
+  <div class="l-navbar" id="nav-bar">
+    <nav class="nav">
+      <div>
+        <a href="/" class="nav_logo">
+          <img src="{{ url_for('static', filename='assets/image/mainlogo.png')}}" alt="Logo Smk Muhammadiyah 2 Kalirejo"
+            class="img-logo w-50" />
+        </a>
+        <div class="nav_list">
+          <a href="/" class="nav_link">
+            <i class="bx bx-grid-alt nav_icon"></i>
+            <span class="nav_name">Dashboard</span>
+          </a>
+          <a href="/kelola/guru" class="nav_link active">
+            <img src="{{ url_for('static', filename='assets/image/icons/kelola-guru.svg')}}" alt="Icon Kelola Guru"
+              class="sidebar-icon" />
+            <span class="nav_name">Kelola Guru</span>
+          </a>
+          <a href="/kelola/siswa" class="nav_link">
+            <img src="{{ url_for('static', filename='assets/image/icons/kelola-siswa.svg')}}" alt="icon kelola siswa"
+              class="sidebar-icon" />
+            <span class="nav_name">Kelola Siswa</span>
+          </a>
+          <a href="/kelola/ujian" class="nav_link">
+            <img src="{{ url_for('static', filename='assets/image/icons/kelola-ujian.svg')}}" alt="icon kelola ujian"
+              class="sidebar-icon" />
+            <span class="nav_name">Kelola Ujian</span>
+          </a>
+          <a href="/kelola/mapel" class="nav_link">
+            <img src="{{ url_for('static', filename='assets/image/icons/kelola-matapelajaran.svg')}}"
+              alt="icon kelola mata pelajaran" class="sidebar-icon" />
+            <span class="nav_name">Mata Pelajaran</span>
+          </a>
+          <a href="/kelola/kelas" class="nav_link">
+            <img src="{{ url_for('static', filename='assets/image/icons/kelas.svg')}}" alt="icon kelola kelas"
+              class="sidebar-icon" />
+            <span class="nav_name">Kelas</span>
+          </a>
+          <a href="/analitik" class="nav_link">
+            <img src="{{ url_for('static', filename='assets/image/icons/analitik.svg')}}" alt="icon analitik"
+              class="sidebar-icon" />
+            <span class="nav_name">Analitik</span>
+          </a>
+        </div>
+      </div>
+      <div>
+        <a href="/profile" class="nav_link">
+          <i class="bx bx-user nav_icon"></i>
+          <span class="nav_name">Profile</span>
+        </a>
+        <a href="/signout" class="nav_link">
+          <i class="bx bx-log-out nav_icon"></i>
+          <span class="nav_name">SignOut</span>
+        </a>
+      </div>
+    </nav>
+  </div>
+  <div class="row breadcumb">
+    <div class="breadumb-navigation-container">
+      <img src="{{ url_for('static', filename='assets/image/icons/Home Icon.svg')}}" class="breadcrumb-icon"
+        alt="Home icon" />
+    </div>
+    <div class="col breadcrumb-navigation">
+      <div class="breadcrumb-title">Kelola Guru</div>
+      <div class="breadcrumb-information">
+        Kelola data guru dan pengajar dalam aplikasi.
+      </div>
+    </div>
+  </div>
+
+  <!-- main -->
+  <div class="main height-100">
+    <!-- overview section -->
+    <button class="btn btn-sm btn-danger btn-delete" onclick="a()">
+      <i class='bx bx-trash'></i>
+    </button>
+  </div>
+  <!-- end main section -->
+
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.10.8/dist/sweetalert2.all.min.js"></script>
+  <!-- flatpicker -->
+  <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+  <!-- bootsrap -->
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+  <!-- flipclock -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+  <!-- jquery -->
+  <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+  <!-- datatables -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdn.datatables.net/2.0.3/js/dataTables.js"></script>
+  <script src="https://cdn.datatables.net/2.0.3/js/dataTables.bootstrap5.js"></script>
+  <!-- local js -->
+  <script src="{{ url_for('static', filename='assets/js/script.js')}}"></script>
+  <script src="{{ url_for('static', filename='assets/js/chart.js') }}"></script>
+  <!-- Bootstrap JS bundle with Popper.js -->
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>

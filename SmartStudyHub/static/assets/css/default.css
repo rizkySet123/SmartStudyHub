@@ -1,0 +1,34 @@
+body {
+  user-select: none;
+}
+
+.no-padding {
+  padding-right: 0;
+  padding-left: 0;
+  padding-top: 0;
+  padding-bottom: 0;
+}
+.inter-600 {
+  font-optical-sizing: auto;
+  font-weight: 600;
+  font-style: normal;
+  font-variation-settings: "slnt" 0;
+}
+.inter-bold {
+  font-optical-sizing: auto;
+  font-weight: 800;
+  font-style: normal;
+  font-variation-settings: "slnt" 0;
+}
+.flex-row {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  text-align: center;
+}
+
+.flex-row-d {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}

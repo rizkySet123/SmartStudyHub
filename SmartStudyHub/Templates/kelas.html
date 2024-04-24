@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#5F88D2" />
+    <!-- favicon -->
+    <link
+      rel="shortcut icon"
+      href="{{ url_for('static', filename='assets/image/favicon.png')}}"
+      type="image/x-icon"
+    />
+    <!-- jquery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <!-- apexchart -->
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+    <!-- box icons -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css"
+    />
+    <!-- bootstrap 5 -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+      crossorigin="anonymous"
+    />
+    <!-- daatables -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.datatables.net/2.0.3/css/dataTables.bootstrap5.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css"
+    />
+    <!-- local css -->
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='assets/css/style.css')}}"
+    />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='assets/css/default.css')}}"
+    />
+    <!-- Font Awesome -->
+    <script
+      src="https://kit.fontawesome.com/2e5ec2f420.js"
+      crossorigin="anonymous"
+    ></script>
+
+    <title>Dashboard | Kelola Kelas</title>
+  </head>
+  <body id="body-pd" class="">
+    <header class="header" id="header">
+      <div class="header_toggle">
+        <i class="bx bx-menu" id="header-toggle"></i>
+      </div>
+      <div class="header-profile flex-row">
+        <div class="text-end">
+          <div class="profile-name inter-600">Sayoga Pratama</div>
+          <div class="role">Administrator</div>
+        </div>
+        <div class="header_img ms-3">
+          <img
+            src="{{ url_for('static', filename='assets/image/icons/profile-demo.png')}}"
+            alt="Profile"
+          />
+        </div>
+      </div>
+    </header>
+    <div class="l-navbar" id="nav-bar">
+      <nav class="nav">
+        <div>
+          <a href="/" class="nav_logo">
+            <img
+              src="{{ url_for('static', filename='assets/image/mainlogo.png')}}"
+              alt="Logo Smk Muhammadiyah 2 Kalirejo"
+              class="img-logo w-50"
+            />
+          </a>
+          <div class="nav_list">
+            <a href="/" class="nav_link">
+              <i class="bx bx-grid-alt nav_icon"></i>
+              <span class="nav_name">Dashboard</span>
+            </a>
+            <a href="/kelola/guru" class="nav_link">
+              <img
+                src="{{ url_for('static', filename='assets/image/icons/kelola-guru.svg')}}"
+                alt="Icon Kelola Guru"
+                class="sidebar-icon"
+              />
+              <span class="nav_name">Kelola Guru</span>
+            </a>
+            <a href="/kelola/siswa" class="nav_link">
+              <img
+                src="{{ url_for('static', filename='assets/image/icons/kelola-siswa.svg')}}"
+                alt="icon kelola siswa"
+                class="sidebar-icon"
+              />
+              <span class="nav_name">Kelola Siswa</span>
+            </a>
+            <a href="/kelola/ujian" class="nav_link">
+              <img
+                src="{{ url_for('static', filename='assets/image/icons/kelola-ujian.svg')}}"
+                alt="icon kelola ujian"
+                class="sidebar-icon"
+              />
+              <span class="nav_name">Kelola Ujian</span>
+            </a>
+            <a href="/kelola/mapel" class="nav_link">
+              <img
+                src="{{ url_for('static', filename='assets/image/icons/kelola-matapelajaran.svg')}}"
+                alt="icon kelola mata pelajaran"
+                class="sidebar-icon"
+              />
+              <span class="nav_name">Mata Pelajaran</span>
+            </a>
+            <a href="/kelola/kelas" class="nav_link active">
+              <img
+                src="{{ url_for('static', filename='assets/image/icons/kelas.svg')}}"
+                alt="icon kelola kelas"
+                class="sidebar-icon"
+              />
+              <span class="nav_name">Kelas</span>
+            </a>
+            <a href="/analitik" class="nav_link">
+              <img
+                src="{{ url_for('static', filename='assets/image/icons/analitik.svg')}}"
+                alt="icon analitik"
+                class="sidebar-icon"
+              />
+              <span class="nav_name">Analitik</span>
+            </a>
+          </div>
+        </div>
+        <div>
+          <a href="/profile" class="nav_link">
+            <i class="bx bx-user nav_icon"></i>
+            <span class="nav_name">Profile</span>
+          </a>
+          <a href="/signout" class="nav_link">
+            <i class="bx bx-log-out nav_icon"></i>
+            <span class="nav_name">SignOut</span>
+          </a>
+        </div>
+      </nav>
+    </div>
+    <div class="row breadcumb">
+      <div class="breadumb-navigation-container">
+        <img
+          src="{{ url_for('static', filename='assets/image/icons/Home Icon.svg')}}"
+          class="breadcrumb-icon"
+          alt="Home icon"
+        />
+      </div>
+      <div class="col breadcrumb-navigation">
+        <div class="breadcrumb-title">Kelola Kelas</div>
+        <div class="breadcrumb-information">
+          Lihat daftar kelas yang terdaftar dalam aplikasi dan tambahkan, edit,
+          atau hapus kelas.
+        </div>
+      </div>
+    </div>
+
+    <!-- main -->
+    <div class="main height-100">
+      <!-- overview section -->
+      <div class="overview">
+        <div class="overview-title">Informasi Kelola Kelas</div>
+        <div class="overview-description">
+          Di halaman Kelola Kelas, admin dapat mengelola daftar kelas yang
+          terdaftar di sekolah dengan mudah
+        </div>
+        <div class="overview-list-content">
+          <ul>
+            <li>
+              Admin dapat melihat, menambahkan, dan mengedit informasi kelas
+              seperti nama kelas, tingkat kelas, dan informasi terkait lainnya
+              untuk memastikan data kelas selalu terkini dan terorganisir.
+            </li>
+          </ul>
+        </div>
+      </div>
+      <!-- end overview section -->
+      <div class="container-fluid mt-3 no-padding">
+        <div class="row">
+          <!-- Col Pertama -->
+          <div class="col-12 d-flex col-sm-6 full-width-sm">
+            <div
+              class="flex-row-d container-informasi-halaman justify-content-between"
+            >
+              <div class="informasi-halaman">
+                <div class="title-informasi">Total Semua Kelas</div>
+                <div class="value-informasi">712</div>
+              </div>
+              <img
+                class="me-3"
+                src="{{ url_for('static', filename='assets/image/icons/i-total-guru.svg')}}"
+                alt=""
+              />
+            </div>
+          </div>
+          <!-- Col Kedua -->
+          <div class="col-12 col-sm-6 d-flex justify-content-end">
+            <div class="action-buttons flex-row-d mt-2">
+              <button class="delete-button">
+                Hapus Semua data <i class="bx bx-trash"></i>
+              </button>
+              <button class="add-button">
+                Tambah data kelas <i class="bx bx-plus"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- table seluruh data -->
+      <div class="table-view-data">
+        <div class="row view-data-table-title-container">
+          <div class="col-12 col-sm-4 view-table-data-title">
+            Semua Data Kelas
+          </div>
+          <div class="col-12 col-sm-8 d-flex justify-content-sm-end">
+            <!-- filter -->
+            <div class="toggle-container">
+              <button class="toggle-button fw-medium" onclick="toggleBox()">
+                <i class="bx bx-filter-alt"></i> Filter
+              </button>
+              <div class="toggle-box" id="toggleBox">
+                <div class="toggle-box-container">
+                  <select
+                    class="form-select mb-2 filter-select"
+                    aria-label="Default select example"
+                    id="select-kelas"
+                  >
+                    <option value="semua kelas" selected>Semua Kelas</option>
+                    <option value="X TKJ 1">X TKJ 1</option>
+                    <option value="XII TBSM">XII TBSM</option>
+                    <option value="XII TKR1">XII TKR1</option>
+                    <option value="XII TKR2">XII TKR2</option>
+                    <option value="XII TP1">XII TP1</option>
+                    <option value="XII TP2">XII TP2</option>
+                  </select>
+                  <select
+                    class="form-select mb-2 filter-select"
+                    aria-label="Default select example"
+                    id="select-jenjang"
+                  >
+                    <option value="" selected>Berdasarkan Jenjang</option>
+                    <option value="X (10)">X (10)</option>
+                    <option value="XII (11)">XII (11)</option>
+                    <option value="XII (12)">XII (12)</option>
+                  </select>
+                  <select
+                    class="form-select mb-2 filter-select"
+                    aria-label="Default select example"
+                    id="select-jurusan"
+                  >
+                    <option value="" selected>Berdasarkan Jurusan</option>
+                    <option value="Teknik Komputer">Teknik Komputer</option>
+                    <option value="Teknik Pemesinan">Teknik Pemesinan</option>
+                    <option value="Teknik Kendaraan Ringan">
+                      Teknik Kendaraan Ringan
+                    </option>
+                    <option value="Teknik Sepeda Motor">
+                      Teknik Sepeda Motor
+                    </option>
+                  </select>
+                  <div class="btn btn-primary btn-sm w-100" id="apply-button">
+                    Terapkan
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- end filter -->
+            <button class="import btn btn-secondary btn-sm mx-2">
+              <i class="bx bx-export"></i><span>Export CSV</span>
+            </button>
+            <button class="export btn btn-primary btn-sm">
+              <i class="bx bxs-file-export"></i><span>Import CSV</span>
+            </button>
+          </div>
+        </div>
+        <div class="view-table-data-content mx-2 pb-2">
+          <table
+            id="table-data"
+            class="table display nowrap table-striped table-bordered"
+            style="width: 100%"
+          >
+            <thead>
+              <tr>
+                <th>Wali Kelas</th>
+                <th>Nama Kelas</th>
+                <th>Jumlah Murid</th>
+                <th>Ruang Kelas</th>
+                <th>Aksi</th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </div>
+      <!-- end table data -->
+    </div>
+    <!-- end main section -->
+
+    <!-- bootsrap -->
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+      crossorigin="anonymous"
+    ></script>
+    <!-- flipclock -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/flipclock/0.7.8/flipclock.min.js"></script>
+    <!-- jquery -->
+    <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+    <!-- datatables -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.datatables.net/2.0.3/js/dataTables.js"></script>
+    <script src="https://cdn.datatables.net/2.0.3/js/dataTables.bootstrap5.js"></script>
+    <!-- local js -->
+    <script src="{{ url_for('static', filename='assets/js/script.js')}}"></script>
+    <script src="{{ url_for('static', filename='assets/js/chart.js') }}"></script>
+    <script>
+      DataTable.types().forEach((type) => {
+        DataTable.type(type, "detect", () => false);
+      });
+      $("#table-data").DataTable({
+        order: [[0, "asc"]],
+        ajax: {
+          url: "/api/data",
+          dataSrc: "",
+        },
+        columns: [
+          { data: "name" },
+          { data: "kelas" },
+          {
+            data: function (row) {
+              return row.kkm + " " + "Siswa";
+            },
+          },
+          {
+            data: function (row) {
+              return "Ruang" + " " + row.kkm;
+            },
+          },
+
+          {
+            data: null,
+            render: function (data, type, row) {
+              return `
+          <button class="btn btn-sm btn-warning btn-edit" data-name="${row.name}">
+            <i class="fa-regular fa-eye"></i>
+          </button>
+          <button class="btn btn-sm btn-primary btn-edit" data-name="${row.name}">
+            <i class='bx bx-edit'></i>
+          </button>
+          <button class="btn btn-sm btn-danger btn-delete" data-name="${row.name}">
+            <i class='bx bx-trash' ></i>
+          </button>
+        `;
+            },
+          },
+        ],
+        scrollX: true,
+        lengthMenu: [
+          [5, 10, 25, 50, -1],
+          ["5", "10", "25", "50", "Semua"],
+        ],
+        language: {
+          search: "",
+          searchPlaceholder: "Cari Data...",
+          lengthMenu: "Tampilkan: _MENU_",
+        },
+      });
+    </script>
+  </body>
+</html>

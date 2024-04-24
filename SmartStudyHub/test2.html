@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Toggle Box</title>
+    <style>
+      .toggle-container {
+        text-align: center;
+        margin-top: 20px;
+        position: relative;
+      }
+
+      .toggle-button {
+        padding: 10px 20px;
+        background-color: #007bff;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+
+      .toggle-box {
+        display: none;
+        position: absolute;
+        width: 200px;
+        height: 100px;
+        background-color: rgba(
+          240,
+          240,
+          240,
+          1
+        ); /* Warna latar belakang tidak transparan */
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        top: calc(100% + 10px);
+        left: 50%;
+        transform: translateX(-50%);
+        z-index: 1; /* Menempatkan di atas elemen lain */
+      }
+
+      .toggle-box.show {
+        display: block;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="toggle-container">
+      <button class="toggle-button" onclick="toggleBox()">Toggle Box</button>
+      <div class="toggle-box" id="toggleBox"></div>
+    </div>
+
+    <script>
+      function toggleBox() {
+        var box = document.getElementById("toggleBox");
+        box.classList.toggle("show");
+      }
+    </script>
+  </body>
+</html>

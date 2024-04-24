@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>DataTables Example with Random User Generator API</title>
+    <!-- Memuat CSS Bootstrap -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.datatables.net/2.0.3/css/dataTables.bootstrap5.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css"
+    />
+    <!-- Memuat CSS tambahan untuk styling -->
+    <style></style>
+  </head>
+  <body>
+    <table id="example" class="table table-striped" style="width: 100%">
+      <thead>
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Email</th>
+            <th>City</th>
+            <th>Street</th>
+            <th>Zipcode</th>
+            <th>Username</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+      </thead>
+
+      <tbody></tbody>
+    </table>
+
+    <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.datatables.net/2.0.3/js/dataTables.js"></script>
+    <script src="https://cdn.datatables.net/2.0.3/js/dataTables.bootstrap5.js"></script>
+    <!-- Memuat Font Awesome untuk ikon -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
+
+    <script>
+      $("#example").DataTable({
+        ajax: {
+          url: "https://jsonplaceholder.typicode.com/users",
+          dataSrc: "",
+        },
+
+        columns: [
+          { data: "name" },
+          { data: "email" },
+          { data: "address.city" },
+          { data: "address.street" },
+          { data: "address.zipcode" },
+          { data: "username" },
+          {
+            data: null,
+            render: function (data, type, row) {
+              return `
+            <button class="btn btn-sm btn-primary btn-edit" data-name="${row.name}">
+              <i class="fas fa-edit"></i>
+            </button>
+            <button class="btn btn-sm btn-danger btn-delete" data-name="${row.name}">
+              <i class="fas fa-trash"></i>
+            </button>
+          `;
+            },
+          },
+        ],
+        scrollX: true,
+        lengthMenu: [
+          [10, 25, 50, -1],
+          ["10", "25", "50", "Semua"],
+        ],
+        language: {
+          search: "",
+          searchPlaceholder: "Cari Data...",
+          lengthMenu: "Tampilkan _MENU_ Data",
+        },
+      });
+
+      // Tambahkan event listener untuk tombol edit dan delete
+      $("#example").on("click", ".btn-edit", function () {
+        var userId = $(this).data("id");
+        // Lakukan sesuatu ketika tombol edit diklik, misalnya redirect ke halaman edit
+        console.log("Edit button clicked for user ID:", userId);
+      });
+
+      $("#example").on("click", ".btn-delete", function () {
+        var userId = $(this).data("id");
+        // Lakukan sesuatu ketika tombol delete diklik, misalnya konfirmasi hapus
+        console.log("Delete button clicked for user ID:", userId);
+      });
+
+      $(document).ready(function () {
+        var table = $("#myTable").DataTable({
+          select: {
+            style: "multi", // Atau 'single' untuk memilih satu baris sekaligus
+            selector: ".data-checkbox", // Selector untuk checkbox
+          },
+        });
+
+        // Pilih semua baris saat checkbox "Select All" diklik
+        $("#select-all").on("click", function () {
+          if (this.checked) {
+            table.rows().select();
+          } else {
+            table.rows().deselect();
+          }
+        });
+      });
+    </script>
+  </body>
+</html>
